@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grand Barber & Co. | Barbería Clásica & Estilo Moderno</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Cinzel & Plus Jakarta Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#e6ca65',
+                            500: '#d4af37',
+                            600: '#c5a059',
+                            700: '#a37f31',
+                        },
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1a1a1a',
+                            600: '#262626',
+                            500: '#333333'
+                        }
+                    },
+                    fontFamily: {
+                        title: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+        }
+        h1, h2, h3, .font-title {
+            font-family: 'Cinzel', serif;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fce879 0%, #d4af37 50%, #997819 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-gradient {
+            border-image: linear-gradient(to right, #d4af37, #262626) 1;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-slate-200 antialiased custom-scrollbar selection:bg-gold-500 selection:text-black">
+
+    <!-- Top Notice Bar -->
+    <div class="bg-gradient-to-r from-dark-900 via-gold-700/30 to-dark-900 border-b border-gold-500/20 py-2 text-center text-xs tracking-wider uppercase font-medium text-gold-400">
+        <i class="fa-solid fa-scissors mr-2"></i> Reserva tu cita online y obtén 10% OFF en tu primera visita <i class="fa-solid fa-scissors ml-2"></i>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 bg-dark-900/90 backdrop-blur-md border-b border-white/5 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-gold-600 to-gold-400 p-0.5 shadow-lg shadow-gold-500/10 group-hover:shadow-gold-500/30 transition-all duration-300">
+                        <div class="w-full h-full bg-dark-900 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-scissors text-gold-500 text-xl group-hover:rotate-45 transition-transform duration-500"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xl font-black font-title tracking-widest text-white block leading-none">THE GRAND</span>
+                        <span class="text-[10px] font-title tracking-[0.3em] text-gold-500 block uppercase mt-1">Barber & Co.</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-semibold text-slate-300">
+                    <a href="#inicio" class="hover:text-gold-500 transition-colors">Inicio</a>
+                    <a href="#nosotros" class="hover:text-gold-500 transition-colors">Nosotros</a>
+                    <a href="#servicios" class="hover:text-gold-500 transition-colors">Servicios</a>
+                    <a href="#barberos" class="hover:text-gold-500 transition-colors">Barberos</a>
+                    <a href="#galeria" class="hover:text-gold-500 transition-colors">Estilos</a>
+                    <a href="#contacto" class="hover:text-gold-500 transition-colors">Contacto</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden sm:flex items-center">
+                    <button onclick="openBookingModal()" class="relative inline-flex items-center justify-center px-6 py-3 text-xs uppercase tracking-widest font-bold text-dark-900 bg-gold-500 hover:bg-gold-400 rounded-lg shadow-lg shadow-gold-500/20 hover:shadow-gold-500/40 transition-all duration-300 group overflow-hidden">
+                        <span class="relative z-10 flex items-center gap-2">
+                            <i class="fa-regular fa-calendar-check text-sm"></i> Reservar Ahora
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-slate-300 hover:text-gold-500 p-2 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 border-b border-gold-500/20 px-6 py-6 space-y-4">
+            <a href="#inicio" onclick="toggleMobileMenu()" class="block text-sm uppercase tracking-wider text-slate-200 hover:text-gold-500 py-1">Inicio</a>
+            <a href="#nosotros" onclick="toggleMobileMenu()" class="block text-sm uppercase tracking-wider text-slate-200 hover:text-gold-500 py-1">Nosotros</a>
+            <a href="#servicios" onclick="toggleMobileMenu()" class="block text-sm uppercase tracking-wider text-slate-200 hover:text-gold-500 py-1">Servicios</a>
+            <a href="#barberos" onclick="toggleMobileMenu()" class="block text-sm uppercase tracking-wider text-slate-200 hover:text-gold-500 py-1">Barberos</a>
+            <a href="#galeria" onclick="toggleMobileMenu()" class="block text-sm uppercase tracking-wider text-slate-200 hover:text-gold-500 py-1">Estilos</a>
+            <a href="#contacto" onclick="toggleMobileMenu()" class="block text-sm uppercase tracking-wider text-slate-200 hover:text-gold-500 py-1">Contacto</a>
+            <button onclick="toggleMobileMenu(); openBookingModal();" class="w-full mt-4 py-3 bg-gold-500 hover:bg-gold-400 text-dark-900 text-xs font-bold uppercase tracking-widest rounded-lg transition-colors">
+                Reservar Cita Ahora
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-dark-900 py-20">
+            <!-- Background Image Overlay -->
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1920&q=80" alt="Barber Shop Interior" class="w-full h-full object-cover opacity-25 scale-105 animate-pulse" style="animation-duration: 10s;">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/80 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-dark-900 via-transparent to-dark-900"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-10 max-w-5xl mx-auto px-4 text-center space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold-500/30 bg-gold-500/10 text-gold-400 text-xs tracking-[0.25em] uppercase font-semibold">
+                    <i class="fa-solid fa-crown text-xs"></i> Experiencia Caballero Tradicional & Moderno
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white uppercase leading-tight">
+                    Más que un corte, <br>
+                    <span class="gold-gradient-text">Un Ritual de Estilo</span>
+                </h1>
+
+                <p class="max-w-2xl mx-auto text-slate-400 text-sm sm:text-base font-light leading-relaxed">
+                    Donde la tradición del afeitado clásico a navaja se encuentra con la precisión de la barbería de vanguardia. Un espacio exclusivo diseñado para el hombre distinguido.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <button onclick="openBookingModal()" class="w-full sm:w-auto px-8 py-4 bg-gold-500 hover:bg-gold-400 text-dark-900 text-xs font-bold uppercase tracking-[0.2em] rounded-lg shadow-xl shadow-gold-500/20 hover:shadow-gold-500/40 transition-all transform hover:-translate-y-0.5">
+                        Agendar Cita Presencial
+                    </button>
+                    <a href="#servicios" class="w-full sm:w-auto px-8 py-4 border border-white/20 hover:border-gold-500 text-white hover:text-gold-400 text-xs font-bold uppercase tracking-[0.2em] rounded-lg bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all">
+                        Explorar Servicios
+                    </a>
+                </div>
+
+                <!-- Stats Badges -->
+                <div class="pt-12 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto border-t border-white/10 mt-12">
+                    <div>
+                        <span class="text-3xl font-extrabold text-gold-500 font-title">12+</span>
+                        <p class="text-[11px] uppercase tracking-wider text-slate-400 mt-1">Años de Excelencia</p>
+                    </div>
+                    <div>
+                        <span class="text-3xl font-extrabold text-gold-500 font-title">15k+</span>
+                        <p class="text-[11px] uppercase tracking-wider text-slate-400 mt-1">Clientes Satisfechos</p>
+                    </div>
+                    <div>
+                        <span class="text-3xl font-extrabold text-gold-500 font-title">100%</span>
+                        <p class="text-[11px] uppercase tracking-wider text-slate-400 mt-1">Navaja Tradicional</p>
+                    </div>
+                    <div>
+                        <span class="text-3xl font-extrabold text-gold-500 font-title">4.9★</span>
+                        <p class="text-[11px] uppercase tracking-wider text-slate-400 mt-1">Valoración Media</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="nosotros" class="py-24 bg-dark-800 relative border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    
+                    <!-- Images Mosaic -->
+                    <div class="relative">
+                        <div class="relative z-10 rounded-2xl overflow-hidden border-2 border-gold-500/30 shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=800&q=80" alt="Barber Master at work" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="absolute -bottom-8 -right-8 w-2/3 rounded-2xl overflow-hidden border-4 border-dark-800 shadow-2xl hidden sm:block z-20">
+                            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80" alt="Hot towel treatment" class="w-full h-auto object-cover">
+                        </div>
+                        <div class="absolute -top-6 -left-6 w-24 h-24 border-t-2 border-l-2 border-gold-500/60 z-0"></div>
+                    </div>
+
+                    <!-- Text Content -->
+                    <div class="space-y-6">
+                        <div class="inline-flex items-center gap-2 text-gold-500 text-xs uppercase tracking-[0.25em] font-semibold">
+                            <span class="w-8 h-px bg-gold-500"></span> Nuestra Historia
+                        </div>
+
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white uppercase leading-tight">
+                            El Santuario del Cuidado <br><span class="gold-gradient-text">Masculino de Leyenda</span>
+                        </h2>
+
+                        <p class="text-slate-400 text-sm leading-relaxed font-light">
+                            Fundada en 2014, <strong class="text-slate-200">The Grand Barber & Co.</strong> nació con el objetivo de devolverle al hombre contemporáneo el espacio de relajación y distinción que merece.
+                        </p>
+
+                        <p class="text-slate-400 text-sm leading-relaxed font-light">
+                            Cada servicio es una experiencia ritualizada: desde la toalla caliente perfumada con aceites esenciales, el afeitado a navaja barbera de un solo filo, hasta el perfilado milimétrico ajustado a las facciones de tu rostro.
+                        </p>
+
+                        <div class="grid sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-gold-500/10 text-gold-500 flex items-center justify-center shrink-0 mt-1">
+                                    <i class="fa-solid fa-check text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Productos Premium</h4>
+                                    <p class="text-[12px] text-slate-400 mt-0.5">Bálsamos orgánicos y ceras de grado profesional.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-gold-500/10 text-gold-500 flex items-center justify-center shrink-0 mt-1">
+                                    <i class="fa-solid fa-check text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Bebida de Cortesía</h4>
+                                    <p class="text-[12px] text-slate-400 mt-0.5">Whisky de malta, café espresso o cerveza artesanal.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servicios" class="py-24 bg-dark-900 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-16">
+                    <span class="text-gold-500 text-xs uppercase tracking-[0.25em] font-semibold">Menú Exclusivo</span>
+                    <h2 class="text-3xl sm:text-5xl font-bold text-white uppercase">Servicios & Tarifas</h2>
+                    <div class="w-16 h-0.5 bg-gold-500 mx-auto"></div>
+                    <p class="text-slate-400 text-xs sm:text-sm font-light">
+                        Todos nuestros servicios incluyen bebida de bienvenida y asesoría de imagen personalizada.
+                    </p>
+                </div>
+
+                <!-- Services Grid -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    
+                    <!-- Service Card 1 -->
+                    <div class="bg-dark-800 p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-gold-500/40 transition-all duration-300 flex flex-col justify-between group">
+                        <div class="space-y-4">
+                            <div class="flex items-start justify-between border-b border-white/10 pb-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-white uppercase group-hover:text-gold-400 transition-colors">Corte Clásico / Ejecutivo</h3>
+                                    <span class="text-[11px] text-gold-500 tracking-wider uppercase font-medium"><i class="fa-regular fa-clock mr-1"></i> 45 min</span>
+                                </div>
+                                <span class="text-2xl font-bold font-title text-gold-500">$25.00</span>
+                            </div>
+                            <p class="text-xs text-slate-400 font-light leading-relaxed">
+                                Asesoría morfológica, lavado capilar estimulante, corte de precisión con tijera o máquina, peinado con pomada de fijación premium y toalla caliente final.
+                            </p>
+                        </div>
+                        <button onclick="selectServiceAndBook('Corte Clásico / Ejecutivo')" class="mt-6 w-full py-2.5 bg-dark-700 hover:bg-gold-500 hover:text-dark-900 text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-center">
+                            Seleccionar Servicio
+                        </button>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="bg-dark-800 p-6 sm:p-8 rounded-2xl border border-gold-500/30 relative overflow-hidden shadow-xl shadow-gold-500/5 flex flex-col justify-between group">
+                        <span class="absolute top-0 right-0 bg-gold-500 text-dark-900 text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-bl-lg">Más Popular</span>
+                        <div class="space-y-4">
+                            <div class="flex items-start justify-between border-b border-white/10 pb-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-white uppercase group-hover:text-gold-400 transition-colors">Arreglo & Esculpido de Barba</h3>
+                                    <span class="text-[11px] text-gold-500 tracking-wider uppercase font-medium"><i class="fa-regular fa-clock mr-1"></i> 35 min</span>
+                                </div>
+                                <span class="text-2xl font-bold font-title text-gold-500">$20.00</span>
+                            </div>
+                            <p class="text-xs text-slate-400 font-light leading-relaxed">
+                                Delineado milimétrico, rebajado de volumen, perfilado a navaja con gel hidratante transparente, tratamiento de toalla caliente y aceites esenciales.
+                            </p>
+                        </div>
+                        <button onclick="selectServiceAndBook('Arreglo & Esculpido de Barba')" class="mt-6 w-full py-2.5 bg-gold-500 hover:bg-gold-400 text-dark-900 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-center">
+                            Seleccionar Servicio
+                        </button>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="bg-dark-800 p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-gold-500/40 transition-all duration-300 flex flex-col justify-between group">
+                        <div class="space-y-4">
+                            <div class="flex items-start justify-between border-b border-white/10 pb-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-white uppercase group-hover:text-gold-400 transition-colors">Experiencia Royale (Combo Full)</h3>
+                                    <span class="text-[11px] text-gold-500 tracking-wider uppercase font-medium"><i class="fa-regular fa-clock mr-1"></i> 75 min</span>
+                                </div>
+                                <span class="text-2xl font-bold font-title text-gold-500">$40.00</span>
+                            </div>
+                            <p class="text-xs text-slate-400 font-light leading-relaxed">
+                                Nuestro servicio insignia: Corte completo, ritual de barba clásico a navaja, mascarilla facial de carbón activado y masaje de cuello y hombros.
+                            </p>
+                        </div>
+                        <button onclick="selectServiceAndBook('Experiencia Royale (Combo Full)')" class="mt-6 w-full py-2.5 bg-dark-700 hover:bg-gold-500 hover:text-dark-900 text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-center">
+                            Seleccionar Servicio
+                        </button>
+                    </div>
+
+                    <!-- Service Card 4 -->
+                    <div class="bg-dark-800 p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-gold-500/40 transition-all duration-300 flex flex-col justify-between group">
+                        <div class="space-y-4">
+                            <div class="flex items-start justify-between border-b border-white/10 pb-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-white uppercase group-hover:text-gold-400 transition-colors">Afeitado Tradicional a Navaja</h3>
+                                    <span class="text-[11px] text-gold-500 tracking-wider uppercase font-medium"><i class="fa-regular fa-clock mr-1"></i> 30 min</span>
+                                </div>
+                                <span class="text-2xl font-bold font-title text-gold-500">$18.00</span>
+                            </div>
+                            <p class="text-xs text-slate-400 font-light leading-relaxed">
+                                Afeitado apurado al estilo tradicional con brocha de pelo de tejón, espuma caliente, navaja de afeitar de precisión y bálsamo After-Shave calmante.
+                            </p>
+                        </div>
+                        <button onclick="selectServiceAndBook('Afeitado Tradicional a Navaja')" class="mt-6 w-full py-2.5 bg-dark-700 hover:bg-gold-500 hover:text-dark-900 text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-center">
+                            Seleccionar Servicio
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery / Styles Section -->
+        <section id="galeria" class="py-24 bg-dark-800 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <span class="text-gold-500 text-xs uppercase tracking-[0.25em] font-semibold">Portafolio</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white uppercase mt-1">Galería de Estilos</h2>
+                    </div>
+                    <!-- Filter Buttons -->
+                    <div class="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wider" id="gallery-filters">
+                        <button onclick="filterGallery('all')" class="gallery-btn px-4 py-2 rounded-lg bg-gold-500 text-dark-900 transition-all">Todos</button>
+                        <button onclick="filterGallery('cortes')" class="gallery-btn px-4 py-2 rounded-lg bg-dark-700 text-slate-300 hover:text-white transition-all">Cortes</button>
+                        <button onclick="filterGallery('barbas')" class="gallery-btn px-4 py-2 rounded-lg bg-dark-700 text-slate-300 hover:text-white transition-all">Barbas</button>
+                        <button onclick="filterGallery('fade')" class="gallery-btn px-4 py-2 rounded-lg bg-dark-700 text-slate-300 hover:text-white transition-all">Skin Fade</button>
+                    </div>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="gallery-grid">
+                    <!-- Image 1 -->
+                    <div class="gallery-item cortes fade group relative rounded-2xl overflow-hidden bg-dark-700 aspect-[4/5] border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=600&q=80" alt="Fade Cut" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                            <span class="text-gold-400 text-[10px] font-bold uppercase tracking-widest">Low Fade & Pompadour</span>
+                            <h4 class="text-white font-bold text-base uppercase">Corte Graduado</h4>
+                        </div>
+                    </div>
+
+                    <!-- Image 2 -->
+                    <div class="gallery-item barbas group relative rounded-2xl overflow-hidden bg-dark-700 aspect-[4/5] border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80" alt="Beard Grooming" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                            <span class="text-gold-400 text-[10px] font-bold uppercase tracking-widest">Perfilado Vikingo</span>
+                            <h4 class="text-white font-bold text-base uppercase">Barba Larga Esculpida</h4>
+                        </div>
+                    </div>
+
+                    <!-- Image 3 -->
+                    <div class="gallery-item cortes group relative rounded-2xl overflow-hidden bg-dark-700 aspect-[4/5] border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80" alt="Classic Cut" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                            <span class="text-gold-400 text-[10px] font-bold uppercase tracking-widest">Estilo Gentleman</span>
+                            <h4 class="text-white font-bold text-base uppercase">Corte Ejecutivo Clásico</h4>
+                        </div>
+                    </div>
+
+                    <!-- Image 4 -->
+                    <div class="gallery-item barbas fade group relative rounded-2xl overflow-hidden bg-dark-700 aspect-[4/5] border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80" alt="Beard and Fade" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                            <span class="text-gold-400 text-[10px] font-bold uppercase tracking-widest">Mid Fade + Barba Corta</span>
+                            <h4 class="text-white font-bold text-base uppercase">Delineado Afilado</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Master Barbers Section -->
+        <section id="barberos" class="py-24 bg-dark-900 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-16">
+                    <span class="text-gold-500 text-xs uppercase tracking-[0.25em] font-semibold">Maestros Barberos</span>
+                    <h2 class="text-3xl sm:text-5xl font-bold text-white uppercase">Nuestro Equipo</h2>
+                    <div class="w-16 h-0.5 bg-gold-500 mx-auto"></div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Barber 1 -->
+                    <div class="bg-dark-800 rounded-2xl overflow-hidden border border-white/5 hover:border-gold-500/40 transition-all duration-300 group">
+                        <div class="relative h-80 overflow-hidden bg-dark-700">
+                            <img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?auto=format&fit=crop&w=600&q=80" alt="Barber Marcus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark-800 via-transparent to-transparent"></div>
+                        </div>
+                        <div class="p-6 text-center space-y-2">
+                            <h3 class="text-xl font-bold text-white uppercase font-title">Marcus Vance</h3>
+                            <p class="text-xs text-gold-500 uppercase tracking-widest font-semibold">Master Barber & Fundador</p>
+                            <p class="text-xs text-slate-400 font-light pt-2">Especialista en afeitado clásico a navaja y cortes vintage con más de 12 años de experiencia internacional.</p>
+                            <div class="flex justify-center gap-4 pt-4 text-slate-400">
+                                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Barber 2 -->
+                    <div class="bg-dark-800 rounded-2xl overflow-hidden border border-white/5 hover:border-gold-500/40 transition-all duration-300 group">
+                        <div class="relative h-80 overflow-hidden bg-dark-700">
+                            <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80" alt="Barber Carlos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark-800 via-transparent to-transparent"></div>
+                        </div>
+                        <div class="p-6 text-center space-y-2">
+                            <h3 class="text-xl font-bold text-white uppercase font-title">Carlos "Fade" Silva</h3>
+                            <p class="text-xs text-gold-500 uppercase tracking-widest font-semibold">Especialista en Fade & Urban</p>
+                            <p class="text-xs text-slate-400 font-light pt-2">Experto en degradados milimétricos (Skin Fade), diseños modernos y peinados de tendencia urbana.</p>
+                            <div class="flex justify-center gap-4 pt-4 text-slate-400">
+                                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Barber 3 -->
+                    <div class="bg-dark-800 rounded-2xl overflow-hidden border border-white/5 hover:border-gold-500/40 transition-all duration-300 group">
+                        <div class="relative h-80 overflow-hidden bg-dark-700">
+                            <img src="https://images.unsplash.com/photo-1517832606589-7150064319a6?auto=format&fit=crop&w=600&q=80" alt="Barber David" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark-800 via-transparent to-transparent"></div>
+                        </div>
+                        <div class="p-6 text-center space-y-2">
+                            <h3 class="text-xl font-bold text-white uppercase font-title">David Thorne</h3>
+                            <p class="text-xs text-gold-500 uppercase tracking-widest font-semibold">Barba & Estilo Facial</p>
+                            <p class="text-xs text-slate-400 font-light pt-2">Maestro en el diseño y arquitectura de barbas tupidas, tratamientos capilares y masajes relajantes.</p>
+                            <div class="flex justify-center gap-4 pt-4 text-slate-400">
+                                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-24 bg-dark-800 border-y border-white/5 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-16">
+                    <span class="text-gold-500 text-xs uppercase tracking-[0.25em] font-semibold">Reseñas</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white uppercase">Lo Que Dicen Nuestros Clientes</h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Review 1 -->
+                    <div class="bg-dark-900 p-8 rounded-2xl border border-white/5 space-y-4">
+                        <div class="flex text-gold-500 text-xs gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed italic font-light">
+                            "La atención desde que entras es de primer nivel. El whisky de cortesía y el afeitado a navaja de Marcus son inigualables. Totalmente recomendado."
+                        </p>
+                        <div class="pt-4 border-t border-white/5 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 text-gold-500 font-bold flex items-center justify-center font-title">
+                                EA
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase">Eduardo A.</h4>
+                                <span class="text-[10px] text-slate-500">Cliente Frecuente</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="bg-dark-900 p-8 rounded-2xl border border-white/5 space-y-4">
+                        <div class="flex text-gold-500 text-xs gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed italic font-light">
+                            "Carlos logró exactamente el degradado que buscaba para mi boda. El ambiente con música suave y sillones de cuero te hace sentir como un rey."
+                        </p>
+                        <div class="pt-4 border-t border-white/5 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 text-gold-500 font-bold flex items-center justify-center font-title">
+                                RG
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase">Roberto G.</h4>
+                                <span class="text-[10px] text-slate-500">Cliente Verificado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="bg-dark-900 p-8 rounded-2xl border border-white/5 space-y-4">
+                        <div class="flex text-gold-500 text-xs gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed italic font-light">
+                            "La Experiencia Royale vale cada centavo. El tratamiento de toalla caliente y el arreglo de barba me dejaron renovado por completo."
+                        </p>
+                        <div class="pt-4 border-t border-white/5 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 text-gold-500 font-bold flex items-center justify-center font-title">
+                                JM
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase">Javier M.</h4>
+                                <span class="text-[10px] text-slate-500">Cliente Verificado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location & Contact Section -->
+        <section id="contacto" class="py-24 bg-dark-900 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    
+                    <!-- Contact Information -->
+                    <div class="space-y-8">
+                        <div>
+                            <span class="text-gold-500 text-xs uppercase tracking-[0.25em] font-semibold">Ubicación & Contacto</span>
+                            <h2 class="text-3xl sm:text-4xl font-bold text-white uppercase mt-1">Visítanos en Nuestro Local</h2>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Address -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-dark-800 border border-gold-500/30 text-gold-500 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-location-dot text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Dirección</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Av. Mariscal Santa Cruz #1042, Zona Central</p>
+                                    <p class="text-xs text-slate-500">Edificio Gran Vía, Planta Baja</p>
+                                </div>
+                            </div>
+
+                            <!-- Hours -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-dark-800 border border-gold-500/30 text-gold-500 flex items-center justify-center shrink-0">
+                                    <i class="fa-regular fa-clock text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Horarios de Atención</h4>
+                                    <p class="text-xs text-slate-400 mt-1">Lunes a Viernes: 10:00 AM - 8:00 PM</p>
+                                    <p class="text-xs text-slate-400">Sábados: 9:00 AM - 7:00 PM</p>
+                                    <p class="text-xs text-gold-500">Domingos: Cerrado</p>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-dark-800 border border-gold-500/30 text-gold-500 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-phone text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Teléfono & WhatsApp</h4>
+                                    <p class="text-xs text-slate-400 mt-1">+591 700-12345 / +591 2 240-0000</p>
+                                    <p class="text-xs text-slate-500">Atención directa en horario laboral</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="pt-4">
+                            <button onclick="openBookingModal()" class="w-full sm:w-auto px-8 py-4 bg-gold-500 hover:bg-gold-400 text-dark-900 text-xs font-bold uppercase tracking-widest rounded-lg transition-all shadow-lg shadow-gold-500/20">
+                                Agendar Mi Cita Ahora
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Simulated Map Display -->
+                    <div class="bg-dark-800 rounded-3xl overflow-hidden border border-white/10 relative h-[400px] flex items-center justify-center group">
+                        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80" alt="Map Location" class="w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-dark-900/40"></div>
+                        
+                        <div class="relative z-10 text-center p-6 bg-dark-900/90 backdrop-blur-md rounded-2xl border border-gold-500/40 max-w-xs shadow-2xl">
+                            <div class="w-12 h-12 bg-gold-500 text-dark-900 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg shadow-gold-500/40 animate-bounce">
+                                <i class="fa-solid fa-scissors text-lg"></i>
+                            </div>
+                            <h4 class="text-sm font-bold text-white uppercase font-title">The Grand Barber & Co.</h4>
+                            <p class="text-[11px] text-slate-400 mt-1">Haz clic para abrir en Google Maps</p>
+                            <a href="https://maps.google.com" target="_blank" class="inline-block mt-3 px-4 py-2 bg-gold-500/20 hover:bg-gold-500 text-gold-400 hover:text-dark-900 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-colors border border-gold-500/40">
+                                Ver Ubicación GPS
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 text-slate-500 text-xs border-t border-white/5 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gold-500/20 text-gold-500 flex items-center justify-center">
+                    <i class="fa-solid fa-scissors text-sm"></i>
+                </div>
+                <span class="text-sm font-bold text-white font-title tracking-wider">THE GRAND BARBER & CO.</span>
+            </div>
+
+            <p class="text-center">&copy; 2026 The Grand Barber & Co. Todos los derechos reservados.</p>
+
+            <div class="flex items-center gap-4 text-slate-400 text-base">
+                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Online Booking Modal -->
+    <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-dark-800 border border-gold-500/30 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto custom-scrollbar" id="booking-modal-card">
+            
+            <button onclick="closeBookingModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <!-- Booking Form -->
+            <div id="booking-form-view">
+                <div class="text-center space-y-2 mb-6">
+                    <span class="text-gold-500 text-[10px] uppercase tracking-[0.25em] font-semibold">Reserva en Línea</span>
+                    <h3 class="text-2xl font-bold text-white uppercase font-title">Agendar Tu Cita</h3>
+                    <div class="w-12 h-0.5 bg-gold-500 mx-auto"></div>
+                </div>
+
+                <form onsubmit="confirmBooking(event)" class="space-y-4">
+                    <!-- Service selection -->
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">1. Selecciona el Servicio</label>
+                        <select id="booking-service" required class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold-500 transition-colors">
+                            <option value="">-- Seleccionar Servicio --</option>
+                            <option value="Corte Clásico / Ejecutivo">Corte Clásico / Ejecutivo ($25.00)</option>
+                            <option value="Arreglo & Esculpido de Barba">Arreglo & Esculpido de Barba ($20.00)</option>
+                            <option value="Experiencia Royale (Combo Full)">Experiencia Royale ($40.00)</option>
+                            <option value="Afeitado Tradicional a Navaja">Afeitado Tradicional a Navaja ($18.00)</option>
+                        </select>
+                    </div>
+
+                    <!-- Barber selection -->
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">2. Elige tu Barbero Preferido</label>
+                        <select id="booking-barber" required class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold-500 transition-colors">
+                            <option value="Cualquier Barbero Disponible">Cualquier Barbero Disponible</option>
+                            <option value="Marcus Vance">Marcus Vance (Master Barber)</option>
+                            <option value="Carlos Silva">Carlos "Fade" Silva</option>
+                            <option value="David Thorne">David Thorne</option>
+                        </select>
+                    </div>
+
+                    <!-- Date & Time selection -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">3. Fecha</label>
+                            <input type="date" id="booking-date" required class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold-500 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">4. Hora</label>
+                            <select id="booking-time" required class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold-500 transition-colors">
+                                <option value="">-- Hora --</option>
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="11:30 AM">11:30 AM</option>
+                                <option value="02:00 PM">02:00 PM</option>
+                                <option value="03:30 PM">03:30 PM</option>
+                                <option value="05:00 PM">05:00 PM</option>
+                                <option value="06:30 PM">06:30 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Customer Details -->
+                    <div class="space-y-3 pt-2">
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300">5. Datos Personales</label>
+                        <div>
+                            <input type="text" id="booking-name" required placeholder="Nombre completo" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold-500 transition-colors">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="tel" id="booking-phone" required placeholder="Teléfono / WhatsApp" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold-500 transition-colors">
+                            <input type="email" id="booking-email" required placeholder="Correo electrónico" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold-500 transition-colors">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full mt-6 py-4 bg-gold-500 hover:bg-gold-400 text-dark-900 text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-gold-500/20">
+                        Confirmar Reserva
+                    </button>
+                </form>
+            </div>
+
+            <!-- Booking Confirmation View (Hidden by default) -->
+            <div id="booking-success-view" class="hidden text-center py-6 space-y-4">
+                <div class="w-16 h-16 bg-gold-500/20 text-gold-500 border border-gold-500/40 rounded-full flex items-center justify-center mx-auto text-2xl">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+
+                <h3 class="text-2xl font-bold text-white uppercase font-title">¡Cita Confirmada!</h3>
+                <p class="text-xs text-slate-400 max-w-sm mx-auto">
+                    Hemos registrado tu reserva. Te enviamos un mensaje de confirmación por WhatsApp y correo electrónico.
+                </p>
+
+                <div class="bg-dark-900 p-4 rounded-xl border border-white/10 text-left text-xs space-y-2 my-4">
+                    <p class="text-slate-400"><strong class="text-white">Servicio:</strong> <span id="summary-service" class="text-gold-400"></span></p>
+                    <p class="text-slate-400"><strong class="text-white">Barbero:</strong> <span id="summary-barber"></span></p>
+                    <p class="text-slate-400"><strong class="text-white">Fecha & Hora:</strong> <span id="summary-datetime"></span></p>
+                    <p class="text-slate-400"><strong class="text-white">Cliente:</strong> <span id="summary-name"></span></p>
+                </div>
+
+                <button onclick="closeBookingModal()" class="w-full py-3 bg-gold-500 hover:bg-gold-400 text-dark-900 text-xs font-bold uppercase tracking-widest rounded-xl transition-colors">
+                    Entendido, Cerrar
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Interactive Logic JavaScript -->
+    <script>
+        // Set minimum date to today
+        document.addEventListener("DOMContentLoaded", () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('booking-date').setAttribute('min', today);
+            document.getElementById('booking-date').value = today;
+        });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Modal Controls
+        function openBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            const card = document.getElementById('booking-modal-card');
+            
+            document.getElementById('booking-form-view').classList.remove('hidden');
+            document.getElementById('booking-success-view').classList.add('hidden');
+
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.classList.add('opacity-100');
+            card.classList.remove('scale-95');
+            card.classList.add('scale-100');
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            const card = document.getElementById('booking-modal-card');
+
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // Quick Service Selection
+        function selectServiceAndBook(serviceName) {
+            document.getElementById('booking-service').value = serviceName;
+            openBookingModal();
+        }
+
+        // Confirm Booking Form Process
+        function confirmBooking(e) {
+            e.preventDefault();
+
+            const service = document.getElementById('booking-service').value;
+            const barber = document.getElementById('booking-barber').value;
+            const date = document.getElementById('booking-date').value;
+            const time = document.getElementById('booking-time').value;
+            const name = document.getElementById('booking-name').value;
+
+            // Fill summary details
+            document.getElementById('summary-service').innerText = service;
+            document.getElementById('summary-barber').innerText = barber;
+            document.getElementById('summary-datetime').innerText = `${date} a las ${time}`;
+            document.getElementById('summary-name').innerText = name;
+
+            // Switch views inside modal
+            document.getElementById('booking-form-view').classList.add('hidden');
+            document.getElementById('booking-success-view').classList.remove('hidden');
+        }
+
+        // Gallery Filtering
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.gallery-btn');
+
+            // Toggle active button style
+            buttons.forEach(btn => {
+                if (btn.innerText.toLowerCase().includes(category) || (category === 'all' && btn.innerText.toLowerCase() === 'todos')) {
+                    btn.className = "gallery-btn px-4 py-2 rounded-lg bg-gold-500 text-dark-900 font-semibold transition-all";
+                } else {
+                    btn.className = "gallery-btn px-4 py-2 rounded-lg bg-dark-700 text-slate-300 hover:text-white font-semibold transition-all";
+                }
+            });
+
+            // Filter items
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
